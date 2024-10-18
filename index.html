@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Online Word Editor</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f3f3f3;
+    }
+
+    .toolbar {
+      display: flex;
+      background-color: #ddd;
+      padding: 10px;
+      border-bottom: 1px solid #ccc;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .toolbar button, .toolbar select {
+      padding: 5px;
+      border: 1px solid #bbb;
+      background-color: white;
+      cursor: pointer;
+    }
+
+    .toolbar button:hover {
+      background-color: #eee;
+    }
+
+    .editor {
+      margin: 20px;
+      background-color: white;
+      height: calc(100vh - 70px);
+      border: 1px solid #ccc;
+      padding: 10px;
+      overflow-y: auto;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .editor:focus {
+      outline: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="toolbar">
+    <button onclick="formatText('bold')"><b>B</b></button>
+    <button onclick="formatText('italic')"><i>I</i></button>
+    <button onclick="formatText('underline')"><u>U</u></button>
+
+    <select onchange="formatText('fontName', this.value)">
+      <option value="Arial">Arial</option>
+      <option value="Times New Roman">Times New Roman</option>
+      <option value="Courier New">Courier New</option>
+    </select>
+
+    <select onchange="formatText('fontSize', this.value)">
+      <option value="1">Small</option>
+      <option value="3" selected>Normal</option>
+      <option value="5">Large</option>
+    </select>
+
+    <button onclick="clearContent()">Clear</button>
+  </div>
+
+  <div class="editor" contenteditable="true">
+    Start typing your document here...
+  </div>
+
+  <script>
+    function formatText(command, value = null) {
+      document.execCommand(command, false, value);
+    }
+
+    function clearContent() {
+      document.querySelector('.editor').innerHTML = '';
+    }
+  </script>
+
+</body>
+</html>
